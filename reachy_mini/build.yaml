@@ -1,0 +1,5 @@
+build_from:
+  amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
+labels:
+  org.opencontainers.image.title: Reachy Mini
+  org.opencontainers.image.source: https://github.com/atterdal/ha-reachy-mini

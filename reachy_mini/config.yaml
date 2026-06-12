@@ -1,0 +1,19 @@
+name: Reachy Mini
+version: "0.1.0"
+slug: reachy_mini
+description: Kör Reachy Mini Lite-daemonen så roboten styrs över USB direkt på HAOS-maskinen
+url: https://github.com/atterdal/ha-reachy-mini/tree/main/reachy_mini
+arch:
+  - amd64
+# Privilegierad hårdvaruåtkomst: en dedikerad robotlåda får se all USB
+# (seriell motorstyrning, USB-ljud, ev. kamera). full_access kan INTE
+# kombineras med devices/usb/uart — den ersätter dem.
+full_access: true
+udev: true
+host_network: true
+startup: application
+boot: manual
+init: false
+# Inga användarval i v1.
+options: {}
+schema: {}
