@@ -45,6 +45,9 @@ jobs:
           platforms: linux/amd64
           push: true
           provenance: false
+          # Cacha lager (särskilt det tunga webrtc-rust-bygget) mellan körningar.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             ghcr.io/atterdal/amd64-reachy-mini:${{ steps.meta.outputs.version }}
             ghcr.io/atterdal/amd64-reachy-mini:latest

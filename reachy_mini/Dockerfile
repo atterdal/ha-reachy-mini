@@ -64,6 +64,10 @@ ENV GST_PLUGIN_PATH=/opt/gst-plugins-rs/lib/gstreamer-1.0
 
 ENV PATH="/opt/reachy/bin:${PATH}"
 
+# Vårt Home Assistant-verktyg för conversation-appen (laddas via
+# REACHY_MINI_EXTERNAL_TOOLS_DIRECTORY + AUTOLOAD_EXTERNAL_TOOLS i run.sh).
+COPY ha_tools/ /opt/reachy-ha-tools/
+
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
 

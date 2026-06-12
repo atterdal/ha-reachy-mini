@@ -1,5 +1,5 @@
 name: Reachy Mini
-version: "0.3.0"
+version: "0.4.0"
 slug: reachy_mini
 description: Kör Reachy Mini Lite-daemonen så roboten styrs över USB direkt på HAOS-maskinen
 url: https://github.com/atterdal/ha-reachy-mini/tree/main/reachy_mini
@@ -25,6 +25,13 @@ privileged:
 startup: application
 boot: manual
 init: false
-# Inga användarval i v1.
-options: {}
-schema: {}
+# Låter HA-verktyget nå Home Assistants kärna via Supervisor-proxyn
+# (http://supervisor/core/api) med SUPERVISOR_TOKEN — för röststyrning av hemmet.
+homeassistant_api: true
+# Användarval: OpenAI-nyckel för röst (lämna tomt → gratis HF-röst).
+options:
+  openai_api_key: ""
+  model_name: ""
+schema:
+  openai_api_key: password?
+  model_name: str?

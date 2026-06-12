@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0
+
+- **Ljud-fix permanent:** run.sh genererar `~/.asoundrc` (reachymini_audio_src/_sink,
+  dmix/dsnoop) vid start så daemonen hittar Reachys USB-mic/högtalare i containern.
+- **HA-styrning:** bakar in `home_assistant`-verktyget (`/opt/reachy-ha-tools/`) +
+  `REACHY_MINI_EXTERNAL_TOOLS_DIRECTORY`/`AUTOLOAD_EXTERNAL_TOOLS`, och
+  `homeassistant_api: true` så roboten kan styra hemmet via HA:s Assist.
+- **OpenAI Realtime-röst:** ny add-on-inställning `openai_api_key` (+ `model_name`).
+  Satt → `BACKEND_PROVIDER=openai`; tom → gratis HF-röst.
+
 ## 0.3.0
 
 - **Mediastack: bakar in GStreamers rust-webrtc-plugin (`webrtcsink`).** Utan det
