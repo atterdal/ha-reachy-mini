@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+- **Mediastack: bakar in GStreamers rust-webrtc-plugin (`webrtcsink`).** Utan det
+  startar daemonens `GstMediaServer` inte → varken lokal IPC eller webrtc kommer
+  upp → conversation-appen kraschar (`ConnectionRefused` mot webrtc-signalling) och
+  ingen kamera/ljud. Plugin:et finns inte i apt; multi-stage-bygget kompilerar
+  `gst-plugin-webrtc` 0.14.5 (cargo-c) mot GStreamer 1.22 och kopierar in det.
+  Lägger även till `gstreamer1.0-nice`/`libnice10`/`gstreamer1.0-alsa`.
+
 ## 0.2.1
 
 - `apparmor: false` + `privileged: [SYS_NICE, SYS_RAWIO]`. HA:s sandlåda
