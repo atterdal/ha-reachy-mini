@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- `apparmor: false` + `privileged: [SYS_NICE, SYS_RAWIO]`. HA:s sandlåda
+  (AppArmor + begränsade capabilities) blockerade serie-/motoroperationerna
+  (`Failed to start daemon: Operation not permitted`) trots `full_access`.
+
 ## 0.2.0
 
 - **Förbyggd image.** Imagen byggs nu i GitHub Actions och publiceras till GHCR

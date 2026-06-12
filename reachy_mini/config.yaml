@@ -1,5 +1,5 @@
 name: Reachy Mini
-version: "0.2.0"
+version: "0.2.1"
 slug: reachy_mini
 description: Kör Reachy Mini Lite-daemonen så roboten styrs över USB direkt på HAOS-maskinen
 url: https://github.com/atterdal/ha-reachy-mini/tree/main/reachy_mini
@@ -14,6 +14,14 @@ arch:
 full_access: true
 udev: true
 host_network: true
+# HA:s standard-AppArmor-profil blockerar lågnivå-serieoperationer på motorerna
+# (gav "Operation not permitted" trots full_access). Av på en dedikerad robotlåda.
+apparmor: false
+# Capabilities motorstyrningen behöver: realtidsprioritet på styrloopen (SYS_NICE)
+# och raw I/O mot serieporten (SYS_RAWIO).
+privileged:
+  - SYS_NICE
+  - SYS_RAWIO
 startup: application
 boot: manual
 init: false
