@@ -1,8 +1,11 @@
 name: Reachy Mini
-version: "0.1.1"
+version: "0.2.0"
 slug: reachy_mini
 description: Kör Reachy Mini Lite-daemonen så roboten styrs över USB direkt på HAOS-maskinen
 url: https://github.com/atterdal/ha-reachy-mini/tree/main/reachy_mini
+# Förbyggd image (byggs i GitHub Actions, publiceras till GHCR). Supervisor
+# gör bara en docker pull — ingen kompilering på NUC:en. {arch} → amd64.
+image: ghcr.io/atterdal/{arch}-reachy-mini
 arch:
   - amd64
 # Privilegierad hårdvaruåtkomst: en dedikerad robotlåda får se all USB

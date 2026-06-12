@@ -12,13 +12,18 @@ REST/WebSocket-API + dashboard på **port 8000**.
 
 ## Installation
 
-1. **Settings → Add-ons → Add-on Store → ⋮ (uppe till höger) → Repositories**
-   och lägg till:
-   `https://github.com/atterdal/ha-reachy-mini`
-2. Repot dyker upp längst ned i butiken — öppna **Reachy Mini** och klicka
-   **Install**. Första bygget tar några minuter (laddar ned GStreamer + Python-paket).
-3. Koppla in roboten via USB, slå på den, och klicka **Start**.
-4. Öppna fliken **Log** och vänta tills daemonen hittat roboten.
+> Add-onen kör en **förbyggd image** från GHCR — Supervisor gör bara en
+> `docker pull`, inget kompileras på NUC:en.
+
+1. **Engångssteg (repo-ägaren):** efter att GitHub Actions-bygget
+   (`Build add-on image`) gått klart, gör GHCR-paketet **publikt** så Supervisor
+   kan hämta det utan inloggning: GitHub → din profil → **Packages** →
+   `amd64-reachy-mini` → **Package settings** → **Change visibility → Public**.
+2. **Settings → Add-ons → Add-on Store → ⋮ (uppe till höger) → Repositories**
+   och lägg till: `https://github.com/atterdal/ha-reachy-mini`
+3. Öppna **Reachy Mini** → **Install** (snabb — bara en pull).
+4. Koppla in roboten via USB, slå på den, och klicka **Start**.
+5. Öppna fliken **Log** och vänta tills daemonen hittat roboten.
 
 ## Använda roboten
 
