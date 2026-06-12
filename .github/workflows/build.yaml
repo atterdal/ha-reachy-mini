@@ -18,6 +18,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Read add-on version from config.yaml
+        id: meta
+        run: |
+          version=$(grep '^version:' reachy_mini/config.yaml | head -1 | sed -E 's/.*"(.*)".*/\1/')
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "Add-on version: ${version}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -25,12 +35,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Bygger imagen enligt reachy_mini/config.yaml (image: + version:) och
-      # build.yaml (build_from), och pushar ghcr.io/atterdal/amd64-reachy-mini:<version>
-      - name: Build & push amd64 add-on image
-        uses: home-assistant/builder@master
+      # Bygger reachy_mini/Dockerfile för amd64 och pushar till GHCR.
+      # provenance:false → enkel image-manifest som HA Supervisor kan hämta.
+      - name: Build & push amd64 image
+        uses: docker/build-push-action@v6
         with:
-          args: |
-            --target reachy_mini
-            --amd64
-            --addon
+          context: ./reachy_mini
+          file: ./reachy_mini/Dockerfile
+          platforms: linux/amd64
+          push: true
+          provenance: false
+          tags: |
+            ghcr.io/atterdal/amd64-reachy-mini:${{ steps.meta.outputs.version }}
+            ghcr.io/atterdal/amd64-reachy-mini:latest
