@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Bygg-fix: lägg till Cairo/GObject-introspection-dev-headers + meson/ninja så
+  pycairo/PyGObject kan kompileras (bygget föll på `pycairo metadata-generation-failed`).
+
 ## 0.1.0
 
 - Första versionen.

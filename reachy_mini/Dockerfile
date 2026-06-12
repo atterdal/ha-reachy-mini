@@ -10,7 +10,8 @@ ENV LANG=C.UTF-8 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
       python3 python3-venv python3-pip python3-dev \
       python3-gi python3-gst-1.0 gir1.2-gstreamer-1.0 gir1.2-gst-plugins-base-1.0 \
-      build-essential pkg-config \
+      build-essential pkg-config meson ninja-build \
+      libcairo2-dev libgirepository1.0-dev gobject-introspection \
       git git-lfs curl ca-certificates \
       libgstreamer1.0-0 libgstreamer-plugins-base1.0-0 \
       gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
