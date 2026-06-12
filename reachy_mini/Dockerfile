@@ -1,10 +1,11 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie
 
 # ============================================================================
 # Steg 1: kompilera GStreamers rust-webrtc-plugin (webrtcsink).
 # Det finns inte som apt-paket — Pollen kräver bygge från källa, pinnat till
-# 0.14.5 (kritisk webrtcsink-deadlock-fix). Byggs mot SAMMA GStreamer (1.22)
-# som runtime-steget så ABI:t matchar. Allt tungt sker i CI, inte på NUC:en.
+# 0.14.5 (kritisk webrtcsink-deadlock-fix). Byggs mot SAMMA GStreamer (trixie:
+# 1.26) som runtime-steget så ABI:t matchar. 1.26 ger även unixfdsink (lokal
+# kamera-IPC) som saknades i bookworms 1.22. Allt tungt sker i CI, inte på NUC:en.
 # ============================================================================
 FROM ${BUILD_FROM} AS webrtc-builder
 
@@ -49,6 +50,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       gstreamer1.0-libav gstreamer1.0-tools \
       gstreamer1.0-nice gstreamer1.0-alsa libnice10 \
       libportaudio2 libasound2 alsa-utils \
+      udev \
       ffmpeg \
     && git lfs install \
     && rm -rf /var/lib/apt/lists/*
@@ -57,6 +59,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN python3 -m venv --system-site-packages /opt/reachy \
     && /opt/reachy/bin/pip install --no-cache-dir --upgrade pip \
     && /opt/reachy/bin/pip install --no-cache-dir "reachy-mini"
+
+# Patcha kamera-detekteringen att acceptera GStreamers device.path-nyckel.
+COPY patch_camera.py /tmp/patch_camera.py
+RUN /opt/reachy/bin/python /tmp/patch_camera.py
 
 # Bakade-in webrtc-plugin:et från byggsteget + säg åt GStreamer var det ligger.
 COPY --from=webrtc-builder /opt/gst-plugins-rs /opt/gst-plugins-rs

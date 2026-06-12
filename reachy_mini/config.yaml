@@ -1,5 +1,5 @@
 name: Reachy Mini
-version: "0.4.0"
+version: "0.5.0"
 slug: reachy_mini
 description: Kör Reachy Mini Lite-daemonen så roboten styrs över USB direkt på HAOS-maskinen
 url: https://github.com/atterdal/ha-reachy-mini/tree/main/reachy_mini

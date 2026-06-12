@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0
+
+- **Bas → Debian trixie (GStreamer 1.26).** Bookworms 1.22 saknade `unixfdsink`
+  (lokal kamera-IPC) som Reachys mediastack kräver — utan den föll conversation-
+  appen tillbaka på webrtc och kraschade. 1.26 har den. Webrtc-plugin:et byggs nu
+  mot 1.26.
+- **Kamera-fix:** patchar `find_video_device` att även läsa GStreamers
+  `device.path`-nyckel (1.22/1.26 exponerar v4l2-sökvägen olika) + lägger till
+  `udev` så gst-device-monitor enumererar kameran. Löser "No camera found".
+
 ## 0.4.0
 
 - **Ljud-fix permanent:** run.sh genererar `~/.asoundrc` (reachymini_audio_src/_sink,
